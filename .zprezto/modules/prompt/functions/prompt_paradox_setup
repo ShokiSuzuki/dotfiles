@@ -151,7 +151,7 @@ function prompt_paradox_setup {
   # Define prompts.
   if [[ -n $CONDA_DEFAULT_ENV ]]; then
     PROMPT='
- (${CONDA_DEFAULT_ENV})${(e)$(prompt_paradox_build_prompt)}
+ (${CONDA_DEFAULT_ENV}) ${(e)$(prompt_paradox_build_prompt)}
  ${editor_info[keymap]} '
   else
     PROMPT='
