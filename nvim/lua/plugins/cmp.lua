@@ -1,15 +1,15 @@
 return {
-  {
-    "hrsh7th/nvim-cmp",
-    -- 挿入モードに入ったとき（文字を入力しようとしたとき）に読み込む
-    event = "InsertEnter",
-    dependencies = {
-      "hrsh7th/cmp-nvim-lsp", -- LSPからの補完（今後LSPを入れた時に機能します）
-      "hrsh7th/cmp-buffer",   -- 開いているファイル内の単語から補完
-      "hrsh7th/cmp-path",     -- ファイルパス（../ や ./ など）の補完
-      "L3MON4D3/LuaSnip",     -- スニペットエンジン（必須）
-      "saadparwaiz1/cmp_luasnip", -- スニペットをcmpと紐付ける
-    },
+    {
+        "hrsh7th/nvim-cmp",
+        -- 挿入モードに入ったとき（文字を入力しようとしたとき）に読み込む
+        event = "InsertEnter",
+        dependencies = {
+            "hrsh7th/cmp-nvim-lsp", -- LSPからの補完（今後LSPを入れた時に機能します）
+            "hrsh7th/cmp-buffer",   -- 開いているファイル内の単語から補完
+            "hrsh7th/cmp-path",     -- ファイルパス（../ や ./ など）の補完
+            "L3MON4D3/LuaSnip",     -- スニペットエンジン（必須）
+            "saadparwaiz1/cmp_luasnip", -- スニペットをcmpと紐付ける
+        },
     config = function()
       local cmp = require("cmp")
       local luasnip = require("luasnip")
