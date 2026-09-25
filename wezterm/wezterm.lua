@@ -9,8 +9,29 @@ end
 
 config.audible_bell = 'Disabled'
 
--- WSL Ubuntuをデフォルトドメインとして設定
-config.default_domain = 'WSL:Ubuntu'
+-- 1. WSL Ubuntu が利用可能かチェック
+local has_wsl_ubuntu = false
+for _, domain in ipairs(wezterm.default_wsl_domains()) do
+  if domain.name == 'WSL:Ubuntu' then
+    has_wsl_ubuntu = true
+    break
+  end
+end
+
+-- 2. 優先度順（WSL Ubuntu -> PowerShell -> cmd）に判定してデフォルトシェルを設定
+if has_wsl_ubuntu then
+  config.default_domain = 'WSL:Ubuntu'
+elseif wezterm.target_triple:find('windows') then
+  -- Windows環境でPowerShell (pwsh.exe または powershell.exe) の存在確認
+  local pwsh = wezterm.find_program('pwsh.exe') or wezterm.find_program('powershell.exe')
+
+  if pwsh then
+    config.default_prog = { pwsh }
+  else
+    -- PowerShellもなければコマンドプロンプトを使用
+    config.default_prog = { 'cmd.exe' }
+  end
+end
 
 config.automatically_reload_config = true
 config.font_size = 12.0
@@ -78,6 +99,13 @@ config.inactive_pane_hsb = {
   saturation = 0.7,
   brightness = 0.4,
 }
+
+----------------------------------------------------
+-- window
+----------------------------------------------------
+-- デフォルトのウィンドウサイズを指定（列数 x 行数）
+config.initial_cols = 120 -- 横方向の文字数（列）
+config.initial_rows = 35  -- 縦方向の行数
 
 ----------------------------------------------------
 -- keybinds
